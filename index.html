@@ -5,27 +5,39 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Stepmania HTML</title>
         <link rel="stylesheet" href="css/stylesheet.css">
-        <script
+        <!-- <script
             src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"
             integrity="sha512-zhHQR0/H5SEBL3Wn6yYSaTTZej12z0hVZKOv3TwCUXT1z5qeqGcXJLLrbERYRScEDDpYIJhPC1fk31gqR783iQ=="
             crossorigin="anonymous"
-            defer></script>
+            defer></script> -->
     </head>
     <body>
         <noscript>This page uses Javascript. Enable it in your browser settings.</noscript>
         <canvas id="canvas"></canvas>
     </body>
+
+    <!-- Shaders -->
+
     <script id="2d-vertex-shader" type="x-shader/x-vertex">
-        attribute vec2 a_position;
+        attribute vec3 a_position;
+        uniform mat4 u_matrix;
         
         void main() {
-          gl_Position = vec4(a_position, 0, 1);
+            gl_Position = (u_matrix * vec4(a_position, 1));
         }
     </script>
     <script id="2d-fragment-shader" type="x-shader/x-fragment">
         void main() {
-          gl_FragColor = vec4(0,1,0,1);  // green
+            gl_FragColor = vec4(0,1,0,1);  // green
         }
     </script>
+
+    <!-- Assets -->
+    <script src="assets/main.obj" type="model/obj" id="obj"></script>
+    <script src="assets/main.mtl" type="model/mtl" id="mtl"></script>
+
+    <!-- Scripts -->
+    <script src="js/matrix.js"></script>
+    <script src="js/obj.js"></script>
     <script src="js/main.js"></script>
 </html>
